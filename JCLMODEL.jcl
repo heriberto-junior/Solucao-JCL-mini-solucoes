@@ -1,0 +1,28 @@
+//****************************************************************
+//* MODELO DE JCL PARA UTILIZACAO COM DB2
+//****************************************************************
+//JCLMODEL JOB ,'--JOBMODEL--',MSGCLASS=X,CLASS=D,NOTIFY=&SYSUID
+//****************************************************************
+//JOBLIB   DD DSN=LIB.RTC.RDZ.LOADB,DISP=SHR
+//         DD DSN=LIB.RTC.DEV.LOADB,DISP=SHR
+//         DD DSN=LIB.RTC.QLD.LOADB,DISP=SHR
+//         DD DSN=LIB.RTC.PRD.LOADB,DISP=SHR
+//*
+//STEP1    EXEC PGM=IKJEFT01
+//SYSOUT   DD SYSOUT=*
+//SYSDBOUT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//CEEDUMP  DD SYSOUT=*
+//SYSDUMP  DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD *
+  DSN SYSTEM(DSN)
+  RUN PROGRAM(SPBST004)  PLAN(DSVDB2)
+  END
+/*
+//SYSIN    DD DUMMY
+//ENT001   DD DSN=USUARIO.ENT01.TESTE,DISP=SHR
+//SAIDA01  DD DSN=USUARIO.FICH.SEC2010.BAT04OUT,
+//         DISP=(NEW,CATLG,DELETE),
+//         DCB=(RECFM=FB,LRECL=200,BLKSIZE=00),
+//         UNIT=(DASD),SPACE=(CYL,(2,1),RLSE)
